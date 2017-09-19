@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import GoogleMap from 'google-map-react';
-import {getPosition} from './utils';
-
-const You = () => {
-  return (
-    <div className='you'>YOU!!!</div>
-  )
-}
+import logo from './assets/logo.png';
+import { getPosition } from './utils/utils';
+import { getGeoInfo, getEvents } from './utils/fetching';
+import Spin from './components/Spin';
+import Map from './components/Map';
 
 export default class App extends Component {
   constructor(props) {
@@ -15,34 +12,50 @@ export default class App extends Component {
     this.state = {}
   }
 
-  getCurrentPosition = async () => {
-    const coords = await getPosition();
-    if (!coords.error) {
-      this.setState({lat: coords.lat, lng: coords.lng})
-    } else {
-      console.log('getCurrentPosition error: ', coords.message)
-    }
-    
-    
+  componentWillMount() {
+    this.getInitPosition();
+    this.getEvents();
   }
 
+  getEvents = async () => {
+    await getEvents();
+  }
 
-  componentWillMount() {
-    this.getCurrentPosition()
+  getInitPosition = async () => {
+    const coords = await getPosition();
+
+
+    // const coords = {lat: 52.415345,   lng: 30.938137,}
+    if (!coords.error) {
+      this.setState({lat: coords.lat, lng: coords.lng});
+      
+      this.getInitBoundRect(coords.lat, coords.lng);
+    }
+
+  }
+
+  getInitBoundRect = async (lat, lng) => {
+    const geoInfo = await getGeoInfo(lat, lng);
+    console.log('geoInfo', geoInfo)
+    if (geoInfo.status === 'OK') {
+      this.setState({bound: geoInfo.results[1].geometry.bounds})
+    }
+
   }
 
   render() {
-    const {lat, lng} = this.state;
+    const {lat, lng, bound} = this.state;
+
+    console.log('state', this.state)
+
     return (
-      <div className='map_container'>
-        <GoogleMap
-            center={[lat, lng]}
-            zoom={15}>
-              <You 
-                lat={lat} 
-                lng={lng}/>
-        </GoogleMap>
+      <div className='main_container'>
+        <div className='header'>
+          <img src={logo} alt="logo" className='logo'/>
+        </div>
+        {bound ? <Map lat={lat} lng={lng} bound={bound}/> : <Spin />}
       </div>
-    );
+    )
+
   }
 }
