@@ -5,12 +5,3 @@ export const getGeoInfo = (lat, lng) => {
     .then(info => info.json())
     .then(info => info)
 };
-
-export const getEvents = () => {
-    console.log('getEvents')
-    return fetch('https://going-cool.herokuapp.com/api/events')
-    .then((events) => events.json())
-    .then((events) => {
-        console.log('events', events)
-    })
-}

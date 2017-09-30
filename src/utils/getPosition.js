@@ -1,4 +1,4 @@
-export const getPosition = () => {
+const getPosition = () => {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -18,6 +18,7 @@ export const getPosition = () => {
               enableHighAccuracy: true,
               maximumAge: 0
         });
-    })
-    
+    })  
 }
+
+export default getPosition;
