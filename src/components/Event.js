@@ -1,9 +1,24 @@
 import React from 'react';
+import './Event.css';
 
-const Event = (props) => {
-        console.log(props)
-        return <div className='event'>123</div>
-    
-};
+
+class Event extends React.Component {
+	constructor(props) {
+		super(props);
+		// this.alive = true;
+	}
+
+	render() {
+		const {info} = this.props;
+
+		return (
+			<div 
+				className='event' 
+				onClick={() => this.props.setEventInfo(info)}>
+				<div className='inner' />
+			</div> 
+		)
+	}
+}
 
 export default Event;

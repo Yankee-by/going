@@ -37,6 +37,16 @@ export default class Map extends Component {
     
     render() {
         const {lat, lng, events} = this.state;
+        const {setEventInfo} = this.props;
+
+        const renderEvents = events && events.map((event, i) => (
+            <Event
+                setEventInfo={setEventInfo}
+                info={event}
+                key={i.toString()}
+                lat={event.address.results[0].geometry.location.lat} 
+                lng={event.address.results[0].geometry.location.lng}/>  
+        ))
 
         return (
             <div className="map_container" ref="map_container">
@@ -45,7 +55,7 @@ export default class Map extends Component {
                     center={{lat: lat, lng: lng}}
                     zoom={17}>
 
-                    {this.renderEvents(this.state.events)}
+                    {renderEvents}
 
                     <You lat={lat} lng={lng} />
                     
