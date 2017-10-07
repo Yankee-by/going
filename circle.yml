@@ -1,0 +1,23 @@
+machine:
+  services:
+    - docker
+  node:
+    version: 8.3.0
+  post:
+    - npm install -g npm@5.0.3
+
+dependencies:
+  post:
+   - npm install
+
+deployment:
+  stage:
+    branch: master
+    commands:
+      - npm run build
+      - git clone git@github.com:Yankee-by/going.git
+      - cp -r ./build ./going
+      - cd ./going
+      - git add .
+      - git commit -m "CI build $CIRCLE_BUILD_NUM"
+      - git push --force
