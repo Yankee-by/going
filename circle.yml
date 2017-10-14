@@ -7,6 +7,8 @@ machine:
     - npm install -g npm@5.0.3
 
 dependencies:
+  pre:
+   - git config --global push.default simple
   post:
    - npm install
 
@@ -19,7 +21,7 @@ deployment:
     branch: master
     commands:
       - npm run build
-      - git clone git@github.com:Yankee-by/going.git
+      - git clone --depth 1 git@github.com:Yankee-by/going.git
       - cp -r ./build ./going
       - cd ./going
       - git add .
