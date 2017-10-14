@@ -23,8 +23,9 @@ deployment:
     branch: master
     commands:
       - npm run build
+      - cd ..
       - git clone --depth 1 git@github.com:Yankee-by/going.git
-      - cp -r ./build/. ./going/
+      - cp -r iduweb/build/. ./going/
       - cd ./going
       - git remote set-url origin git@github.com:Yankee-by/going.git
       - git add .
