@@ -26,6 +26,7 @@ deployment:
       - git clone --depth 1 git@github.com:Yankee-by/going.git
       - cp -r ./build ./going
       - cd ./going
+      - git remote set-url origin git@github.com:Yankee-by/going.git
       - git add .
       - git commit -m "CI build $CIRCLE_BUILD_NUM"
       - git push --force
