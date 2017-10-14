@@ -24,7 +24,7 @@ export default class App extends Component {
 
   setEventInfo = (info) => {
     console.log(info)
-    const {title, description, type, start, end, cost} = info;
+    const {title, description/*, type, start, end, cost*/} = info;
     this.setState({modalVisible: true, eTitle: title, eDescription: description, eAddress: getAddress(info)})
   }
 

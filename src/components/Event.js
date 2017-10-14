@@ -3,7 +3,7 @@ import './Event.css';
 
 
 class Event extends React.Component {
-	constructor(props) {
+	constructor(props) { // eslint-disable-line no-useless-constructor
 		super(props);
 		// this.alive = true;
 	}
