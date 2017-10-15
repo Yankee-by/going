@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import logo from './assets/logo.png';
+import menu from './assets/menu_icon.svg';
 // import Spin from './components/Spin';
 import Map from './components/Map';
 import { Modal } from 'antd';
@@ -41,7 +41,7 @@ export default class App extends Component {
     return (
       <div className='main_container'>
         <div className='header'>
-          <img src={logo} alt="logo" className='logo'/>
+          <img src={menu} className="menu" alt="menu" />
         </div>
         <Map setEventInfo={this.setEventInfo} />
         
@@ -52,10 +52,7 @@ export default class App extends Component {
           onCancel={this.cancelModal}>
           <p><strong>Адрес: </strong>{eAddress}</p>
           <p><strong>Описание: </strong>{eDescription}</p>
-          
-          
-        
-          </Modal>
+        </Modal>
       
       </div>
     )
